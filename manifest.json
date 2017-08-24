@@ -1,0 +1,54 @@
+{
+    "manifest_version": 2,
+    "name": "上科大树形图计算者",
+    "description": "查询成绩，考试通知，课程表",
+    "version": "0.17.5.21",
+    "permissions": [
+        "http://ids.shanghaitech.edu.cn/*",
+        "http://eams.shanghaitech.edu.cn/*",
+        "http://img.infinitynewtab.com/*",
+        "http://to-a.ru/*",
+        "https://api.ikmoe.com/*",
+        "tabs",
+        "storage",
+        "activeTab"
+    ],
+    "browser_action": {
+        "default_icon": "static/img/2333.jpg",
+        "default_popup": "pop_up.html"
+    },
+    "content_scripts": [{
+            "matches": [
+                "http://ids.shanghaitech.edu.cn/authserver/login*"
+            ],
+            "css": [
+                "static/css/login.css"
+            ],
+            "js": [
+                "static/js/base.js",
+                "static/js/login.js"
+            ]
+        },
+        {
+            "matches": [
+                "http://eams.shanghaitech.edu.cn/*"
+            ],
+            "css": [
+                "static/css/content.css"
+            ],
+            "js": [
+                "static/js/base.js",
+                "static/js/chart/echarts.js",
+                "static/js/chart/mon.js",
+                "static/js/content.js"
+            ]
+        }
+    ],
+    "icons": {
+        "128": "static/img/2333.jpg"
+    },
+    "web_accessible_resources": [
+        "loginPage.html",
+        "content.html"
+    ]
+}

@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <link rel='shortcut icon' href='http://res.shanghaitech.edu.cn/zdy/index.ico'>
+    <title>信息门户</title>
+</head>
+
+<body>
+    <div id="header">
+        <img src="http://egate.shanghaitech.edu.cn/portal/custom/img/school/logo/logo.png" alt="icon">
+        <span id="title">教务助手<span style="font-size:16px;color:#fff">Beta v0.9</span></span>
+        <span><a href="logout.action" style="float:right;color:#fff;margin-top:15px">退出登录</a></span>
+    </div>
+    <div id="nav">
+        <ul>
+            <li id="li-grade" class="nav-li-active">成绩</li>
+            <li id="li-class">课表</li>
+            <li id="li-exam">考试</li>
+            <li id="li-other">其他</li>
+        </ul>
+    </div>
+    <div id="wrap">
+        <div id="grade-block" class="block">
+            <div id="abstract">
+                <span id="chart-1">
+                    <span class="little-block" id="gpa-sum">
+                        <span id="chart" class="little-chart"></span>
+                        <span id="title">GPA</span><span id="value">0</span>
+                    </span>
+                    <span class="little-block" id="aver-grade">
+                        <span id="chart" class="little-chart"></span>
+                        <!-- <span id="title">平均分</span><span id="value">0</span> -->
+                    </span>
+                    <span class="little-block" id="study-grade">
+                        <span id="chart" class="little-chart"></span>
+                        <span id="title">总学分</span><span id="value">0</span>
+                    </span>
+                </span>
+                <span id="chart-2"></span>
+            </div>
+            <div id="detail">
+                <div id="detail-selector" class="selector">
+                    <ul>
+                    </ul>
+                </div>
+                <div id="detail-chart"></div>
+            </div>
+        </div>
+<!--         <div id="restudy-block" class="block">
+            <div class="block-title">重修指数排行榜</div>
+            <div id="restudy-chart"></div>
+            <p class="tip-text">*注：重修指数计算方式：(4.0 - 该门课GPA) * 该门课学分，分值越高，越建议重修，当然满绩大神可以忽略#(滑稽)</p>
+        </div> -->
+        <div id="class-block" class="block">
+            <div class="block-title">课程表</div>
+            <div class="dropdown" id="course-dropdown">
+                <ul>
+                </ul>
+            </div>
+            <table class="table" id="course-table">
+                <tr class="line head">
+                    <td class="td-block"></td>
+                    <td class="td-block">8:15</td>
+                    <td class="td-block">9:10</td>
+                    <td class="td-block">10:15</td>
+                    <td class="td-block">11:10</td>
+                    <td class="td-block">13:00</td>
+                    <td class="td-block">13:55</td>
+                    <td class="td-block">15:00</td>
+                    <td class="td-block">15:55</td>
+                    <td class="td-block">16:50</td>
+                    <td class="td-block">17:45</td>
+                    <td class="td-block">18:40</td>
+                    <td class="td-block">19:35</td>
+                    <td class="td-block">20:30</td>
+                </tr>
+                <tr class="line odd" id="monday">
+                    <td class="td-block">周一</td>
+                    <td class="td-block"></td>
+                    <td class="td-block"></td>
+                    <td class="td-block"></td>
+                    <td class="td-block"></td>
+                    <td class="td-block"></td>
+                    <td class="td-block"></td>
+                    <td class="td-block"></td>
+                    <td class="td-block"></td>
+                    <td class="td-block"></td>
+                    <td class="td-block"></td>
+                    <td class="td-block"></td>
+                    <td class="td-block"></td>
+                    <td class="td-block"></td>
+                </tr>
+                <tr class="line even" id="tuesday">
+                    <td class="td-block">周二</td>
+                    <td class="td-block"></td>
+                    <td class="td-block"></td>
+                    <td class="td-block"></td>
+                    <td class="td-block"></td>
+                    <td class="td-block"></td>
+                    <td class="td-block"></td>
+                    <td class="td-block"></td>
+                    <td class="td-block"></td>
+                    <td class="td-block"></td>
+                    <td class="td-block"></td>
+                    <td class="td-block"></td>
+                    <td class="td-block"></td>
+                    <td class="td-block"></td>
+                </tr>
+                <tr class="line odd" id="saturday">
+                    <td class="td-block">周三</td>
+                    <td class="td-block"></td>
+                    <td class="td-block"></td>
+                    <td class="td-block"></td>
+                    <td class="td-block"></td>
+                    <td class="td-block"></td>
+                    <td class="td-block"></td>
+                    <td class="td-block"></td>
+                    <td class="td-block"></td>
+                    <td class="td-block"></td>
+                    <td class="td-block"></td>
+                    <td class="td-block"></td>
+                    <td class="td-block"></td>
+                    <td class="td-block"></td>
+                </tr>
+                <tr class="line even" id="thursday">
+                    <td class="td-block">周四</td>
+                    <td class="td-block"></td>
+                    <td class="td-block"></td>
+                    <td class="td-block"></td>
+                    <td class="td-block"></td>
+                    <td class="td-block"></td>
+                    <td class="td-block"></td>
+                    <td class="td-block"></td>
+                    <td class="td-block"></td>
+                    <td class="td-block"></td>
+                    <td class="td-block"></td>
+                    <td class="td-block"></td>
+                    <td class="td-block"></td>
+                    <td class="td-block"></td>
+                </tr>
+                <tr class="line odd" id="friday">
+                    <td class="td-block">周五</td>
+                    <td class="td-block"></td>
+                    <td class="td-block"></td>
+                    <td class="td-block"></td>
+                    <td class="td-block"></td>
+                    <td class="td-block"></td>
+                    <td class="td-block"></td>
+                    <td class="td-block"></td>
+                    <td class="td-block"></td>
+                    <td class="td-block"></td>
+                    <td class="td-block"></td>
+                    <td class="td-block"></td>
+                    <td class="td-block"></td>
+                    <td class="td-block"></td>
+                </tr>
+                <tr class="line even" id="saturday">
+                    <td class="td-block">周六</td>
+                    <td class="td-block"></td>
+                    <td class="td-block"></td>
+                    <td class="td-block"></td>
+                    <td class="td-block"></td>
+                    <td class="td-block"></td>
+                    <td class="td-block"></td>
+                    <td class="td-block"></td>
+                    <td class="td-block"></td>
+                    <td class="td-block"></td>
+                    <td class="td-block"></td>
+                    <td class="td-block"></td>
+                    <td class="td-block"></td>
+                    <td class="td-block"></td>
+                </tr>
+                <tr class="line odd" id="sunday">
+                    <td class="td-block">周日</td>
+                    <td class="td-block"></td>
+                    <td class="td-block"></td>
+                    <td class="td-block"></td>
+                    <td class="td-block"></td>
+                    <td class="td-block"></td>
+                    <td class="td-block"></td>
+                    <td class="td-block"></td>
+                    <td class="td-block"></td>
+                    <td class="td-block"></td>
+                    <td class="td-block"></td>
+                    <td class="td-block"></td>
+                    <td class="td-block"></td>
+                    <td class="td-block"></td>
+                </tr>
+            </table>
+            <p class="tip-text"><!-- *注：有些奇葩的课程安排，把两种课程按照单双周排列到同一天的同一时段，这里没有进行区分 -->
+                <span onclick="window.print()" class="do-not-print" id="print-course-table">  打印课程表</span>
+                <!-- <span onclick="alert(/123/)" class="do-not-print" id="print-course-table">  下载ICS</span> -->
+            </p>
+        </div>
+        <div id="exam-block" class="block">
+            <div class="block-title">近期考试</div>
+            <table id="exam-table">
+
+            </table>
+        </div>
+        <div id="other-block" class="block">
+            <div class="block-title">常用链接</div>
+            <div id="other-links">
+                <div class="link-box">
+                    <div class="link-title"></div>
+                    <div class="link-content">
+                        <a class="links" target="_blank" href="http://www.shanghaitech.edu.cn">学校主页</a>
+                        <a class="links" target="_blank" href="http://egate.shanghaitech.edu.cn">学生办事大厅</a>
+                        <a class="links" target="_blank" href="http://asa.shanghaitech.edu.cn">教学事务处与学生事务处</a>
+                        <a class="links" target="_blank" href="http://openinfo.shanghaitech.edu.cn">信息公开网</a>
+                        <a class="links" target="_blank" href="http://card.shanghaitech.edu.cn">一卡通</a>
+                        <a class="links" target="_blank" href="http://library.shanghaitech.edu.cn/library_02.asp?tid=3">图书馆</a>
+                        <a class="links" target="_blank" href="https://mail.shanghaitech.edu.cn">学生邮箱</a>
+                        <a class="links" target="_blank" href="http://pan.shanghaitech.edu.cn">校园云存储</a>
+                    </div>
+                </div>
+                <div class="link-box">
+                    <div class="link-title"></div>
+                    <div class="link-content">
+                        <a class="links" target="_blank" href="http://www.zhouzean.cn/">则安的小站</a>
+                        <a class="links" target="_blank" href="https://geekpie.org/zh/">GeekPie</a>
+                        <a class="links" target="_blank" href="https://grade.geekpie.org">活动成就签到系统</a>
+                        <a class="links" target="_blank" href="https://www.coursebench.net">CourseBench 评课社区</a>
+                        <a class="links" target="_blank" href="https://mirrors.geekpie.org">开源镜像站</a>
+                        <a class="links" target="_blank" href="https://shtech.org">陈浩爸爸的教学服务器</a>
+                        <a class="links" target="_blank" href="http://www.lydsy.com/JudgeOnline/">很简单的算法练习网站</a>
+                        <a class="links" target="_blank" href="http://www.matrix67.com/">Matrix67</a>
+                        <a class="links" target="_blank" href="http://contest-hunter.org:83/">自己举办算法比赛</a>
+
+                    </div>
+                </div>
+                <div class="link-box">
+                    <div class="link-title"></div>
+                    <div class="link-content">
+                        <a class="links" target="_blank" href="https://www.google.com/">Google</a>
+                        <a class="links" target="_blank" href="https://www.wikipedia.org/">Wikipedia</a>
+                        <a class="links" target="_blank" href="https://www.coursera.org/">Coursera</a>
+                        <a class="links" target="_blank" href="https://piazza.com/">Piazza</a>
+                        <a class="links" target="_blank" href="https://www.linkedin.com/">LinkedIn</a>
+                        <a class="links" target="_blank" href="http://stackoverflow.com/">StackOverFlow</a>
+                        <a class="links" target="_blank" href="http://open.163.com/">网易公开课</a>
+                        <a class="links" target="_blank" href="http://www.cnki.net/">中国知网</a>
+                        <a class="links" target="_blank" href="https://www.wolframalpha.com/">WolframAlpha</a>
+                        <a class="links" target="_blank" href="https://github.com/">GitHub</a>
+                        <a class="links" target="_blank" href="http://codeforces.com/">codeforces</a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="block do-not-print">
+            <div class="block-title">联系开发者</div>
+            <p class="blank-tips">如果你在使用过程中遇到任何问题或者有好的建议，欢迎发邮件给我：qinqi@shanghaitech.edu.cn or tangym@shanghaitech.edu.cn<!-- <br>此插件已在Github上开源：<a href="https://github.com/Yidadaa/UESTC_Helper" target="_blank">电子科技大学教务助手</a>
+            <br>插件官网：<a href="http://blog.simplenaive.cn/uestc_helper" target="_blank">点这里</a>获取最新版本的插件！ -->
+            </p>
+        </div>
+    </div>
+    <script src="static/js/chart/echarts.js"></script>
+    <script src="static/js/chart/mon.js"></script>
+    <script src="static/js/content.js"></script>
+</body>
+
+</html>
