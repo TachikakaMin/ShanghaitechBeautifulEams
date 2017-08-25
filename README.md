@@ -1,4 +1,6 @@
 # ShanghaitechBeautifulEams
+前排求star
+
 太刀川明的上科大eams美化版，魔改自zhouyang的15级bug修复版，其修复版来自Q7的上科大版，上科大版改自电子科大版。
 
 
