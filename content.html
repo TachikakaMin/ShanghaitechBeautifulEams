@@ -2,9 +2,13 @@
 <html lang="zh-cn">
 
 <head>
-    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="renderer" content="webkit">
     <link rel='shortcut icon' href='http://res.shanghaitech.edu.cn/zdy/index.ico'>
+    <script type="text/javascript" src="static/js/ics.deps.min.js"></script>
+    <script type="text/javascript" src="static/js/content.js"></script>
+    <script type="text/javascript" src="static/js/find.js"></script>
+    <script type="text/javascript" src="static/js/pikaday.js"></script>
     <title>信息门户</title>
 </head>
 
@@ -49,11 +53,11 @@
                 <div id="detail-chart"></div>
             </div>
         </div>
-<!--         <div id="restudy-block" class="block">
-            <div class="block-title">重修指数排行榜</div>
+        <div id="restudy-block" class="block">
+            <div class="block-title">拉低GPA指数排行榜</div>
             <div id="restudy-chart"></div>
-            <p class="tip-text">*注：重修指数计算方式：(4.0 - 该门课GPA) * 该门课学分，分值越高，越建议重修，当然满绩大神可以忽略#(滑稽)</p>
-        </div> -->
+            <p class="tip-text">*注：拉低GPA指数计算方式：(4.0 - 该门课GPA) * 该门课学分，分值越高，越建议好好学习，当然满绩大神可以忽略#(滑稽)</p>
+        </div>
         <div id="class-block" class="block">
             <div class="block-title">课程表</div>
             <div class="dropdown" id="course-dropdown">
@@ -191,8 +195,11 @@
                 </tr>
             </table>
             <p class="tip-text"><!-- *注：有些奇葩的课程安排，把两种课程按照单双周排列到同一天的同一时段，这里没有进行区分 -->
-                <span onclick="window.print()" class="do-not-print" id="print-course-table">  打印课程表</span>
-                <!-- <span onclick="alert(/123/)" class="do-not-print" id="print-course-table">  下载ICS</span> -->
+                <span onclick="window.print()" class="do-not-print" id="print-course-table">  打印课程表  </span>
+                <br/>
+                <span id="calsave">  下载ICS  </span>
+                <input type="text" id="datepicker">
+                <button id="buttonId">提交</button>
             </p>
         </div>
         <div id="exam-block" class="block">

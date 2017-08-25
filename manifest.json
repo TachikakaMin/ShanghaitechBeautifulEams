@@ -9,6 +9,7 @@
         "http://img.infinitynewtab.com/*",
         "http://to-a.ru/*",
         "https://api.ikmoe.com/*",
+        "https://rawgithub.com/*",
         "tabs",
         "storage",
         "activeTab"
@@ -40,7 +41,11 @@
                 "static/js/base.js",
                 "static/js/chart/echarts.js",
                 "static/js/chart/mon.js",
-                "static/js/content.js"
+                "static/js/content.js",
+                "static/js/ics.deps.min.js",
+                "static/js/ics.min.js",
+                "static/js/find.js",
+                "static/js/pikaday.js"
             ]
         }
     ],
