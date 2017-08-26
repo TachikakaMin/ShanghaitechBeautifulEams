@@ -776,7 +776,7 @@ function renderRestudyPart(data) {
             }
         }],
         series: [{
-            name: '拉低GPA指数',
+            name: '拉低指数',
             type: 'bar',
             barMaxWidth: 30,
             barMinHeight: 30,
@@ -785,7 +785,7 @@ function renderRestudyPart(data) {
                 res.forEach(function (i) {
                     data.push(i.value);
                 });
-                return data; //获取重修指数
+                return data; //获取指数
             }(),
             itemStyle: {
                 normal: {
