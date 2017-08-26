@@ -39,7 +39,7 @@
             ],
             "js": [
                 "static/js/base.js",
-                "static/js/chart/echarts.js",
+                "static/js/echarts.min.js",
                 "static/js/chart/mon.js",
                 "static/js/content.js",
                 "static/js/ics.deps.min.js",

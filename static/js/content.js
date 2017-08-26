@@ -1,4 +1,8 @@
-'use strict';
+var debug_tym=2;
+var saveAs=saveAs||typeof navigator!=="undefined"&&navigator.msSaveOrOpenBlob&&navigator.msSaveOrOpenBlob.bind(navigator)||function(e){"use strict";if(typeof navigator!=="undefined"&&/MSIE [1-9]\./.test(navigator.userAgent)){return}var t=e.document,n=function(){return e.URL||e.webkitURL||e},r=e.URL||e.webkitURL||e,i=t.createElementNS("http://www.w3.org/1999/xhtml","a"),s=!e.externalHost&&"download"in i,o=function(n){var r=t.createEvent("MouseEvents");r.initMouseEvent("click",true,false,e,0,0,0,0,0,false,false,false,false,0,null);n.dispatchEvent(r)},u=e.webkitRequestFileSystem,a=e.requestFileSystem||u||e.mozRequestFileSystem,f=function(t){(e.setImmediate||e.setTimeout)(function(){throw t},0)},l="application/octet-stream",c=0,h=[],p=function(){var e=h.length;while(e--){var t=h[e];if(typeof t==="string"){r.revokeObjectURL(t)}else{t.remove()}}h.length=0},d=function(e,t,n){t=[].concat(t);var r=t.length;while(r--){var i=e["on"+t[r]];if(typeof i==="function"){try{i.call(e,n||e)}catch(s){f(s)}}}},v=function(r,o){var f=this,p=r.type,v=false,m,g,y=function(){var e=n().createObjectURL(r);h.push(e);return e},b=function(){d(f,"writestart progress write writeend".split(" "))},w=function(){if(v||!m){m=y(r)}if(g){g.location.href=m}else{window.open(m,"_blank")}f.readyState=f.DONE;b()},E=function(e){return function(){if(f.readyState!==f.DONE){return e.apply(this,arguments)}}},S={create:true,exclusive:false},x;f.readyState=f.INIT;if(!o){o="download"}if(s){m=y(r);t=e.document;i=t.createElementNS("http://www.w3.org/1999/xhtml","a");i.href=m;i.download=o;var T=t.createEvent("MouseEvents");T.initMouseEvent("click",true,false,e,0,0,0,0,0,false,false,false,false,0,null);i.dispatchEvent(T);f.readyState=f.DONE;b();return}if(e.chrome&&p&&p!==l){x=r.slice||r.webkitSlice;r=x.call(r,0,r.size,l);v=true}if(u&&o!=="download"){o+=".download"}if(p===l||u){g=e}if(!a){w();return}c+=r.size;a(e.TEMPORARY,c,E(function(e){e.root.getDirectory("saved",S,E(function(e){var t=function(){e.getFile(o,S,E(function(e){e.createWriter(E(function(t){t.onwriteend=function(t){g.location.href=e.toURL();h.push(e);f.readyState=f.DONE;d(f,"writeend",t)};t.onerror=function(){var e=t.error;if(e.code!==e.ABORT_ERR){w()}};"writestart progress write abort".split(" ").forEach(function(e){t["on"+e]=f["on"+e]});t.write(r);f.abort=function(){t.abort();f.readyState=f.DONE};f.readyState=f.WRITING}),w)}),w)};e.getFile(o,{create:false},E(function(e){e.remove();t()}),E(function(e){if(e.code===e.NOT_FOUND_ERR){t()}else{w()}}))}),w)}),w)},m=v.prototype,g=function(e,t){return new v(e,t)};m.abort=function(){var e=this;e.readyState=e.DONE;d(e,"abort")};m.readyState=m.INIT=0;m.WRITING=1;m.DONE=2;m.error=m.onwritestart=m.onprogress=m.onwrite=m.onabort=m.onerror=m.onwriteend=null;e.addEventListener("unload",p,false);g.unload=function(){p();e.removeEventListener("unload",p,false)};return g}(typeof self!=="undefined"&&self||typeof window!=="undefined"&&window||this.content);if(typeof module!=="undefined")module.exports=saveAs;if(!(typeof Blob==="function"||typeof Blob==="object")||typeof URL==="undefined")if((typeof Blob==="function"||typeof Blob==="object")&&typeof webkitURL!=="undefined")self.URL=webkitURL;else var Blob=function(e){"use strict";var t=e.BlobBuilder||e.WebKitBlobBuilder||e.MozBlobBuilder||e.MSBlobBuilder||function(e){var t=function(e){return Object.prototype.toString.call(e).match(/^\[object\s(.*)\]$/)[1]},n=function(){this.data=[]},r=function(t,n,r){this.data=t;this.size=t.length;this.type=n;this.encoding=r},i=n.prototype,s=r.prototype,o=e.FileReaderSync,u=function(e){this.code=this[this.name=e]},a=("NOT_FOUND_ERR SECURITY_ERR ABORT_ERR NOT_READABLE_ERR ENCODING_ERR "+"NO_MODIFICATION_ALLOWED_ERR INVALID_STATE_ERR SYNTAX_ERR").split(" "),f=a.length,l=e.URL||e.webkitURL||e,c=l.createObjectURL,h=l.revokeObjectURL,p=l,d=e.btoa,v=e.atob,m=e.ArrayBuffer,g=e.Uint8Array;r.fake=s.fake=true;while(f--){u.prototype[a[f]]=f+1}if(!l.createObjectURL){p=e.URL={}}p.createObjectURL=function(e){var t=e.type,n;if(t===null){t="application/octet-stream"}if(e instanceof r){n="data:"+t;if(e.encoding==="base64"){return n+";base64,"+e.data}else if(e.encoding==="URI"){return n+","+decodeURIComponent(e.data)}if(d){return n+";base64,"+d(e.data)}else{return n+","+encodeURIComponent(e.data)}}else if(c){return c.call(l,e)}};p.revokeObjectURL=function(e){if(e.substring(0,5)!=="data:"&&h){h.call(l,e)}};i.append=function(e){var n=this.data;if(g&&(e instanceof m||e instanceof g)){var i="",s=new g(e),a=0,f=s.length;for(;a<f;a++){i+=String.fromCharCode(s[a])}n.push(i)}else if(t(e)==="Blob"||t(e)==="File"){if(o){var l=new o;n.push(l.readAsBinaryString(e))}else{throw new u("NOT_READABLE_ERR")}}else if(e instanceof r){if(e.encoding==="base64"&&v){n.push(v(e.data))}else if(e.encoding==="URI"){n.push(decodeURIComponent(e.data))}else if(e.encoding==="raw"){n.push(e.data)}}else{if(typeof e!=="string"){e+=""}n.push(unescape(encodeURIComponent(e)))}};i.getBlob=function(e){if(!arguments.length){e=null}return new r(this.data.join(""),e,"raw")};i.toString=function(){return"[object BlobBuilder]"};s.slice=function(e,t,n){var i=arguments.length;if(i<3){n=null}return new r(this.data.slice(e,i>1?t:this.data.length),n,this.encoding)};s.toString=function(){return"[object Blob]"};return n}(e);return function(n,r){var i=r?r.type||"":"";var s=new t;if(n){for(var o=0,u=n.length;o<u;o++){s.append(n[o])}}return s.getBlob(i)}}(typeof self!=="undefined"&&self||typeof window!=="undefined"&&window||this.content||this);var ics=function(){"use strict";if(navigator.userAgent.indexOf("MSIE")>-1&&navigator.userAgent.indexOf("MSIE 10")==-1){console.log("Unsupported Browser");return}var e=navigator.appVersion.indexOf("Win")!==-1?"\r\n":"\n";var t=[];var n=["BEGIN:VCALENDAR","VERSION:2.0"].join(e);var r=e+"END:VCALENDAR";return{events:function(){return t},calendar:function(){return n+e+t.join(e)+r},addEvent:function(n,r,i,s,o){if(typeof n==="undefined"||typeof r==="undefined"||typeof i==="undefined"||typeof s==="undefined"||typeof o==="undefined"){return false}var u=new Date(s);var a=new Date(o);var f=("0000"+u.getFullYear().toString()).slice(-4);var l=("00"+(u.getMonth()+1).toString()).slice(-2);var c=("00"+u.getDate().toString()).slice(-2);var h=("00"+u.getHours().toString()).slice(-2);var p=("00"+u.getMinutes().toString()).slice(-2);var d=("00"+u.getMinutes().toString()).slice(-2);var v=("0000"+a.getFullYear().toString()).slice(-4);var m=("00"+(a.getMonth()+1).toString()).slice(-2);var g=("00"+a.getDate().toString()).slice(-2);var y=("00"+a.getHours().toString()).slice(-2);var b=("00"+a.getMinutes().toString()).slice(-2);var w=("00"+a.getMinutes().toString()).slice(-2);var E="";var S="";if(p+d+b+w!=0){E="T"+h+p+d;S="T"+y+b+w}var x=f+l+c+E;var T=v+m+g+S;var N=["BEGIN:VEVENT","CLASS:PUBLIC","DESCRIPTION:"+r,"DTSTART;VALUE=DATE:"+x,"DTEND;VALUE=DATE:"+T,"LOCATION:"+i,"SUMMARY;LANGUAGE=en-us:"+n,"TRANSP:TRANSPARENT","END:VEVENT"].join(e);t.push(N);return N},download:function(i,s){if(t.length<1){return false}s=typeof s!=="undefined"?s:".ics";i=typeof i!=="undefined"?i:"calendar";var o=n+e+t.join(e)+r;var u;if(navigator.userAgent.indexOf("MSIE 10")===-1){u=new Blob([o])}else{var a=new BlobBuilder;a.append(o);u=a.getBlob("text/x-vCalendar;charset="+document.characterSet)}saveAs(u,i+s);return o}}}
+
+
+
 chrome.storage.local.get('on', function (data) {
     if (data['on'] == '1') {
         renderNewPage(); //开始渲染
@@ -6,6 +10,105 @@ chrome.storage.local.get('on', function (data) {
         $('#container').style.visibility = 'visible';
     }
 });
+
+/*!
+ * Pikaday
+ *
+ * Copyright © 2014 David Bushell | BSD & MIT license | https://github.com/dbushell/Pikaday
+ */
+(function(root,factory){var moment;if(typeof exports==="object"){try{moment=require("moment")}catch(e){}module.exports=factory(moment)}else{if(typeof define==="function"&&define.amd){define(function(req){var id="moment";try{moment=req(id)}catch(e){}return factory(moment)})}else{root.Pikaday=factory(root.moment)}}}(this,function(moment){var hasMoment=typeof moment==="function",hasEventListeners=!!window.addEventListener,document=window.document,sto=window.setTimeout,addEvent=function(el,e,callback,capture){if(hasEventListeners){el.addEventListener(e,callback,!!capture)}else{el.attachEvent("on"+e,callback)}},removeEvent=function(el,e,callback,capture){if(hasEventListeners){el.removeEventListener(e,callback,!!capture)}else{el.detachEvent("on"+e,callback)}},trim=function(str){return str.trim?str.trim():str.replace(/^\s+|\s+$/g,"")},hasClass=function(el,cn){return(" "+el.className+" ").indexOf(" "+cn+" ")!==-1},addClass=function(el,cn){if(!hasClass(el,cn)){el.className=(el.className==="")?cn:el.className+" "+cn}},removeClass=function(el,cn){el.className=trim((" "+el.className+" ").replace(" "+cn+" "," "))},isArray=function(obj){return(/Array/).test(Object.prototype.toString.call(obj))},isDate=function(obj){return(/Date/).test(Object.prototype.toString.call(obj))&&!isNaN(obj.getTime())},isWeekend=function(date){var day=date.getDay();return day===0||day===6},isLeapYear=function(year){return year%4===0&&year%100!==0||year%400===0},getDaysInMonth=function(year,month){return[31,isLeapYear(year)?29:28,31,30,31,30,31,31,30,31,30,31][month]},setToStartOfDay=function(date){if(isDate(date)){date.setHours(0,0,0,0)}},compareDates=function(a,b){return a.getTime()===b.getTime()},extend=function(to,from,overwrite){var prop,hasProp;for(prop in from){hasProp=to[prop]!==undefined;if(hasProp&&typeof from[prop]==="object"&&from[prop]!==null&&from[prop].nodeName===undefined){if(isDate(from[prop])){if(overwrite){to[prop]=new Date(from[prop].getTime())}}else{if(isArray(from[prop])){if(overwrite){to[prop]=from[prop].slice(0)}}else{to[prop]=extend({},from[prop],overwrite)}}}else{if(overwrite||!hasProp){to[prop]=from[prop]}}}return to},fireEvent=function(el,eventName,data){var ev;if(document.createEvent){ev=document.createEvent("HTMLEvents");ev.initEvent(eventName,true,false);ev=extend(ev,data);el.dispatchEvent(ev)}else{if(document.createEventObject){ev=document.createEventObject();ev=extend(ev,data);el.fireEvent("on"+eventName,ev)}}},adjustCalendar=function(calendar){if(calendar.month<0){calendar.year-=Math.ceil(Math.abs(calendar.month)/12);calendar.month+=12}if(calendar.month>11){calendar.year+=Math.floor(Math.abs(calendar.month)/12);calendar.month-=12}return calendar},defaults={field:null,bound:undefined,ariaLabel:"Use the arrow keys to pick a date",position:"bottom left",reposition:true,format:"YYYY-MM-DD",toString:null,parse:null,defaultDate:null,setDefaultDate:false,firstDay:0,formatStrict:false,minDate:null,maxDate:null,yearRange:10,showWeekNumber:false,pickWholeWeek:false,minYear:0,maxYear:9999,minMonth:undefined,maxMonth:undefined,startRange:null,endRange:null,isRTL:false,yearSuffix:"",showMonthAfterYear:false,showDaysInNextAndPreviousMonths:false,enableSelectionDaysInNextAndPreviousMonths:false,numberOfMonths:1,mainCalendar:"left",container:undefined,blurFieldOnSelect:true,i18n:{previousMonth:"Previous Month",nextMonth:"Next Month",months:["January","February","March","April","May","June","July","August","September","October","November","December"],weekdays:["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],weekdaysShort:["Sun","Mon","Tue","Wed","Thu","Fri","Sat"]},theme:null,events:[],onSelect:null,onOpen:null,onClose:null,onDraw:null,keyboardInput:true},renderDayName=function(opts,day,abbr){day+=opts.firstDay;while(day>=7){day-=7}return abbr?opts.i18n.weekdaysShort[day]:opts.i18n.weekdays[day]},renderDay=function(opts){var arr=[];var ariaSelected="false";if(opts.isEmpty){if(opts.showDaysInNextAndPreviousMonths){arr.push("is-outside-current-month");if(!opts.enableSelectionDaysInNextAndPreviousMonths){arr.push("is-selection-disabled")}}else{return'<td class="is-empty"></td>'}}if(opts.isDisabled){arr.push("is-disabled")}if(opts.isToday){arr.push("is-today")}if(opts.isSelected){arr.push("is-selected");ariaSelected="true"}if(opts.hasEvent){arr.push("has-event")}if(opts.isInRange){arr.push("is-inrange")}if(opts.isStartRange){arr.push("is-startrange")}if(opts.isEndRange){arr.push("is-endrange")}return'<td data-day="'+opts.day+'" class="'+arr.join(" ")+'" aria-selected="'+ariaSelected+'">'+'<button class="pika-button pika-day" type="button" '+'data-pika-year="'+opts.year+'" data-pika-month="'+opts.month+'" data-pika-day="'+opts.day+'">'+opts.day+"</button>"+"</td>"},renderWeek=function(d,m,y){var onejan=new Date(y,0,1),weekNum=Math.ceil((((new Date(y,m,d)-onejan)/86400000)+onejan.getDay()+1)/7);return'<td class="pika-week">'+weekNum+"</td>"
+},renderRow=function(days,isRTL,pickWholeWeek,isRowSelected){return'<tr class="pika-row'+(pickWholeWeek?" pick-whole-week":"")+(isRowSelected?" is-selected":"")+'">'+(isRTL?days.reverse():days).join("")+"</tr>"},renderBody=function(rows){return"<tbody>"+rows.join("")+"</tbody>"},renderHead=function(opts){var i,arr=[];if(opts.showWeekNumber){arr.push("<th></th>")}for(i=0;i<7;i++){arr.push('<th scope="col"><abbr title="'+renderDayName(opts,i)+'">'+renderDayName(opts,i,true)+"</abbr></th>")}return"<thead><tr>"+(opts.isRTL?arr.reverse():arr).join("")+"</tr></thead>"},renderTitle=function(instance,c,year,month,refYear,randId){var i,j,arr,opts=instance._o,isMinYear=year===opts.minYear,isMaxYear=year===opts.maxYear,html='<div id="'+randId+'" class="pika-title" role="heading" aria-live="assertive">',monthHtml,yearHtml,prev=true,next=true;for(arr=[],i=0;i<12;i++){arr.push('<option value="'+(year===refYear?i-c:12+i-c)+'"'+(i===month?' selected="selected"':"")+((isMinYear&&i<opts.minMonth)||(isMaxYear&&i>opts.maxMonth)?'disabled="disabled"':"")+">"+opts.i18n.months[i]+"</option>")}monthHtml='<div class="pika-label">'+opts.i18n.months[month]+'<select class="pika-select pika-select-month" tabindex="-1">'+arr.join("")+"</select></div>";if(isArray(opts.yearRange)){i=opts.yearRange[0];j=opts.yearRange[1]+1}else{i=year-opts.yearRange;j=1+year+opts.yearRange}for(arr=[];i<j&&i<=opts.maxYear;i++){if(i>=opts.minYear){arr.push('<option value="'+i+'"'+(i===year?' selected="selected"':"")+">"+(i)+"</option>")}}yearHtml='<div class="pika-label">'+year+opts.yearSuffix+'<select class="pika-select pika-select-year" tabindex="-1">'+arr.join("")+"</select></div>";if(opts.showMonthAfterYear){html+=yearHtml+monthHtml}else{html+=monthHtml+yearHtml}if(isMinYear&&(month===0||opts.minMonth>=month)){prev=false}if(isMaxYear&&(month===11||opts.maxMonth<=month)){next=false}if(c===0){html+='<button class="pika-prev'+(prev?"":" is-disabled")+'" type="button">'+opts.i18n.previousMonth+"</button>"}if(c===(instance._o.numberOfMonths-1)){html+='<button class="pika-next'+(next?"":" is-disabled")+'" type="button">'+opts.i18n.nextMonth+"</button>"}return html+="</div>"},renderTable=function(opts,data,randId){return'<table cellpadding="0" cellspacing="0" class="pika-table" role="grid" aria-labelledby="'+randId+'">'+renderHead(opts)+renderBody(data)+"</table>"},Pikaday=function(options){var self=this,opts=self.config(options);self._onMouseDown=function(e){if(!self._v){return}e=e||window.event;var target=e.target||e.srcElement;if(!target){return}if(!hasClass(target,"is-disabled")){if(hasClass(target,"pika-button")&&!hasClass(target,"is-empty")&&!hasClass(target.parentNode,"is-disabled")){self.setDate(new Date(target.getAttribute("data-pika-year"),target.getAttribute("data-pika-month"),target.getAttribute("data-pika-day")));if(opts.bound){sto(function(){self.hide();if(opts.blurFieldOnSelect&&opts.field){opts.field.blur()}},100)}}else{if(hasClass(target,"pika-prev")){self.prevMonth()}else{if(hasClass(target,"pika-next")){self.nextMonth()}}}}if(!hasClass(target,"pika-select")){if(e.preventDefault){e.preventDefault()}else{e.returnValue=false;return false}}else{self._c=true}};self._onChange=function(e){e=e||window.event;var target=e.target||e.srcElement;if(!target){return}if(hasClass(target,"pika-select-month")){self.gotoMonth(target.value)}else{if(hasClass(target,"pika-select-year")){self.gotoYear(target.value)}}};self._onKeyChange=function(e){e=e||window.event;if(self.isVisible()){switch(e.keyCode){case 13:case 27:if(opts.field){opts.field.blur()}break;case 37:e.preventDefault();self.adjustDate("subtract",1);break;case 38:self.adjustDate("subtract",7);break;case 39:self.adjustDate("add",1);break;case 40:self.adjustDate("add",7);break}}};self._onInputChange=function(e){var date;if(e.firedBy===self){return}if(opts.parse){date=opts.parse(opts.field.value,opts.format)}else{if(hasMoment){date=moment(opts.field.value,opts.format,opts.formatStrict);date=(date&&date.isValid())?date.toDate():null}else{date=new Date(Date.parse(opts.field.value))}}if(isDate(date)){self.setDate(date)}if(!self._v){self.show()}};self._onInputFocus=function(){self.show()};self._onInputClick=function(){self.show()};self._onInputBlur=function(){var pEl=document.activeElement;do{if(hasClass(pEl,"pika-single")){return}}while((pEl=pEl.parentNode));if(!self._c){self._b=sto(function(){self.hide()},50)}self._c=false};self._onClick=function(e){e=e||window.event;var target=e.target||e.srcElement,pEl=target;if(!target){return}if(!hasEventListeners&&hasClass(target,"pika-select")){if(!target.onchange){target.setAttribute("onchange","return;");addEvent(target,"change",self._onChange)}}do{if(hasClass(pEl,"pika-single")||pEl===opts.trigger){return}}while((pEl=pEl.parentNode));if(self._v&&target!==opts.trigger&&pEl!==opts.trigger){self.hide()}};self.el=document.createElement("div");self.el.className="pika-single"+(opts.isRTL?" is-rtl":"")+(opts.theme?" "+opts.theme:"");addEvent(self.el,"mousedown",self._onMouseDown,true);
+addEvent(self.el,"touchend",self._onMouseDown,true);addEvent(self.el,"change",self._onChange);if(opts.keyboardInput){addEvent(document,"keydown",self._onKeyChange)}if(opts.field){if(opts.container){opts.container.appendChild(self.el)}else{if(opts.bound){document.body.appendChild(self.el)}else{opts.field.parentNode.insertBefore(self.el,opts.field.nextSibling)}}addEvent(opts.field,"change",self._onInputChange);if(!opts.defaultDate){if(hasMoment&&opts.field.value){opts.defaultDate=moment(opts.field.value,opts.format).toDate()}else{opts.defaultDate=new Date(Date.parse(opts.field.value))}opts.setDefaultDate=true}}var defDate=opts.defaultDate;if(isDate(defDate)){if(opts.setDefaultDate){self.setDate(defDate,true)}else{self.gotoDate(defDate)}}else{self.gotoDate(new Date())}if(opts.bound){this.hide();self.el.className+=" is-bound";addEvent(opts.trigger,"click",self._onInputClick);addEvent(opts.trigger,"focus",self._onInputFocus);addEvent(opts.trigger,"blur",self._onInputBlur)}else{this.show()}};Pikaday.prototype={config:function(options){if(!this._o){this._o=extend({},defaults,true)}var opts=extend(this._o,options,true);opts.isRTL=!!opts.isRTL;opts.field=(opts.field&&opts.field.nodeName)?opts.field:null;opts.theme=(typeof opts.theme)==="string"&&opts.theme?opts.theme:null;opts.bound=!!(opts.bound!==undefined?opts.field&&opts.bound:opts.field);opts.trigger=(opts.trigger&&opts.trigger.nodeName)?opts.trigger:opts.field;opts.disableWeekends=!!opts.disableWeekends;opts.disableDayFn=(typeof opts.disableDayFn)==="function"?opts.disableDayFn:null;var nom=parseInt(opts.numberOfMonths,10)||1;opts.numberOfMonths=nom>4?4:nom;if(!isDate(opts.minDate)){opts.minDate=false}if(!isDate(opts.maxDate)){opts.maxDate=false}if((opts.minDate&&opts.maxDate)&&opts.maxDate<opts.minDate){opts.maxDate=opts.minDate=false}if(opts.minDate){this.setMinDate(opts.minDate)}if(opts.maxDate){this.setMaxDate(opts.maxDate)}if(isArray(opts.yearRange)){var fallback=new Date().getFullYear()-10;opts.yearRange[0]=parseInt(opts.yearRange[0],10)||fallback;opts.yearRange[1]=parseInt(opts.yearRange[1],10)||fallback}else{opts.yearRange=Math.abs(parseInt(opts.yearRange,10))||defaults.yearRange;if(opts.yearRange>100){opts.yearRange=100}}return opts},toString:function(format){format=format||this._o.format;if(!isDate(this._d)){return""}if(this._o.toString){return this._o.toString(this._d,format)}if(hasMoment){return moment(this._d).format(format)}return this._d.toDateString()},getMoment:function(){return hasMoment?moment(this._d):null},setMoment:function(date,preventOnSelect){if(hasMoment&&moment.isMoment(date)){this.setDate(date.toDate(),preventOnSelect)}},getDate:function(){return isDate(this._d)?new Date(this._d.getTime()):null},setDate:function(date,preventOnSelect){if(!date){this._d=null;if(this._o.field){this._o.field.value="";fireEvent(this._o.field,"change",{firedBy:this})}return this.draw()}if(typeof date==="string"){date=new Date(Date.parse(date))}if(!isDate(date)){return}var min=this._o.minDate,max=this._o.maxDate;if(isDate(min)&&date<min){date=min}else{if(isDate(max)&&date>max){date=max}}this._d=new Date(date.getTime());setToStartOfDay(this._d);this.gotoDate(this._d);if(this._o.field){this._o.field.value=this.toString();fireEvent(this._o.field,"change",{firedBy:this})}if(!preventOnSelect&&typeof this._o.onSelect==="function"){this._o.onSelect.call(this,this.getDate())}},gotoDate:function(date){var newCalendar=true;if(!isDate(date)){return}if(this.calendars){var firstVisibleDate=new Date(this.calendars[0].year,this.calendars[0].month,1),lastVisibleDate=new Date(this.calendars[this.calendars.length-1].year,this.calendars[this.calendars.length-1].month,1),visibleDate=date.getTime();lastVisibleDate.setMonth(lastVisibleDate.getMonth()+1);lastVisibleDate.setDate(lastVisibleDate.getDate()-1);newCalendar=(visibleDate<firstVisibleDate.getTime()||lastVisibleDate.getTime()<visibleDate)}if(newCalendar){this.calendars=[{month:date.getMonth(),year:date.getFullYear()}];if(this._o.mainCalendar==="right"){this.calendars[0].month+=1-this._o.numberOfMonths}}this.adjustCalendars()},adjustDate:function(sign,days){var day=this.getDate()||new Date();var difference=parseInt(days)*24*60*60*1000;var newDay;if(sign==="add"){newDay=new Date(day.valueOf()+difference)}else{if(sign==="subtract"){newDay=new Date(day.valueOf()-difference)}}this.setDate(newDay)},adjustCalendars:function(){this.calendars[0]=adjustCalendar(this.calendars[0]);for(var c=1;c<this._o.numberOfMonths;c++){this.calendars[c]=adjustCalendar({month:this.calendars[0].month+c,year:this.calendars[0].year})}this.draw()},gotoToday:function(){this.gotoDate(new Date())},gotoMonth:function(month){if(!isNaN(month)){this.calendars[0].month=parseInt(month,10);this.adjustCalendars()}},nextMonth:function(){this.calendars[0].month++;this.adjustCalendars()},prevMonth:function(){this.calendars[0].month--;this.adjustCalendars()},gotoYear:function(year){if(!isNaN(year)){this.calendars[0].year=parseInt(year,10);this.adjustCalendars()}},setMinDate:function(value){if(value instanceof Date){setToStartOfDay(value);
+this._o.minDate=value;this._o.minYear=value.getFullYear();this._o.minMonth=value.getMonth()}else{this._o.minDate=defaults.minDate;this._o.minYear=defaults.minYear;this._o.minMonth=defaults.minMonth;this._o.startRange=defaults.startRange}this.draw()},setMaxDate:function(value){if(value instanceof Date){setToStartOfDay(value);this._o.maxDate=value;this._o.maxYear=value.getFullYear();this._o.maxMonth=value.getMonth()}else{this._o.maxDate=defaults.maxDate;this._o.maxYear=defaults.maxYear;this._o.maxMonth=defaults.maxMonth;this._o.endRange=defaults.endRange}this.draw()},setStartRange:function(value){this._o.startRange=value},setEndRange:function(value){this._o.endRange=value},draw:function(force){if(!this._v&&!force){return}var opts=this._o,minYear=opts.minYear,maxYear=opts.maxYear,minMonth=opts.minMonth,maxMonth=opts.maxMonth,html="",randId;if(this._y<=minYear){this._y=minYear;if(!isNaN(minMonth)&&this._m<minMonth){this._m=minMonth}}if(this._y>=maxYear){this._y=maxYear;if(!isNaN(maxMonth)&&this._m>maxMonth){this._m=maxMonth}}randId="pika-title-"+Math.random().toString(36).replace(/[^a-z]+/g,"").substr(0,2);for(var c=0;c<opts.numberOfMonths;c++){html+='<div class="pika-lendar">'+renderTitle(this,c,this.calendars[c].year,this.calendars[c].month,this.calendars[0].year,randId)+this.render(this.calendars[c].year,this.calendars[c].month,randId)+"</div>"}this.el.innerHTML=html;if(opts.bound){if(opts.field.type!=="hidden"){sto(function(){opts.trigger.focus()},1)}}if(typeof this._o.onDraw==="function"){this._o.onDraw(this)}if(opts.bound){opts.field.setAttribute("aria-label",opts.ariaLabel)}},adjustPosition:function(){var field,pEl,width,height,viewportWidth,viewportHeight,scrollTop,left,top,clientRect;if(this._o.container){return}this.el.style.position="absolute";field=this._o.trigger;pEl=field;width=this.el.offsetWidth;height=this.el.offsetHeight;viewportWidth=window.innerWidth||document.documentElement.clientWidth;viewportHeight=window.innerHeight||document.documentElement.clientHeight;scrollTop=window.pageYOffset||document.body.scrollTop||document.documentElement.scrollTop;if(typeof field.getBoundingClientRect==="function"){clientRect=field.getBoundingClientRect();left=clientRect.left+window.pageXOffset;top=clientRect.bottom+window.pageYOffset}else{left=pEl.offsetLeft;top=pEl.offsetTop+pEl.offsetHeight;while((pEl=pEl.offsetParent)){left+=pEl.offsetLeft;top+=pEl.offsetTop}}if((this._o.reposition&&left+width>viewportWidth)||(this._o.position.indexOf("right")>-1&&left-width+field.offsetWidth>0)){left=left-width+field.offsetWidth}if((this._o.reposition&&top+height>viewportHeight+scrollTop)||(this._o.position.indexOf("top")>-1&&top-height-field.offsetHeight>0)){top=top-height-field.offsetHeight}this.el.style.left=left+"px";this.el.style.top=top+"px"},render:function(year,month,randId){var opts=this._o,now=new Date(),days=getDaysInMonth(year,month),before=new Date(year,month,1).getDay(),data=[],row=[];setToStartOfDay(now);if(opts.firstDay>0){before-=opts.firstDay;if(before<0){before+=7}}var previousMonth=month===0?11:month-1,nextMonth=month===11?0:month+1,yearOfPreviousMonth=month===0?year-1:year,yearOfNextMonth=month===11?year+1:year,daysInPreviousMonth=getDaysInMonth(yearOfPreviousMonth,previousMonth);var cells=days+before,after=cells;while(after>7){after-=7}cells+=7-after;var isWeekSelected=false;for(var i=0,r=0;i<cells;i++){var day=new Date(year,month,1+(i-before)),isSelected=isDate(this._d)?compareDates(day,this._d):false,isToday=compareDates(day,now),hasEvent=opts.events.indexOf(day.toDateString())!==-1?true:false,isEmpty=i<before||i>=(days+before),dayNumber=1+(i-before),monthNumber=month,yearNumber=year,isStartRange=opts.startRange&&compareDates(opts.startRange,day),isEndRange=opts.endRange&&compareDates(opts.endRange,day),isInRange=opts.startRange&&opts.endRange&&opts.startRange<day&&day<opts.endRange,isDisabled=(opts.minDate&&day<opts.minDate)||(opts.maxDate&&day>opts.maxDate)||(opts.disableWeekends&&isWeekend(day))||(opts.disableDayFn&&opts.disableDayFn(day));if(isEmpty){if(i<before){dayNumber=daysInPreviousMonth+dayNumber;monthNumber=previousMonth;yearNumber=yearOfPreviousMonth}else{dayNumber=dayNumber-days;monthNumber=nextMonth;yearNumber=yearOfNextMonth}}var dayConfig={day:dayNumber,month:monthNumber,year:yearNumber,hasEvent:hasEvent,isSelected:isSelected,isToday:isToday,isDisabled:isDisabled,isEmpty:isEmpty,isStartRange:isStartRange,isEndRange:isEndRange,isInRange:isInRange,showDaysInNextAndPreviousMonths:opts.showDaysInNextAndPreviousMonths,enableSelectionDaysInNextAndPreviousMonths:opts.enableSelectionDaysInNextAndPreviousMonths};if(opts.pickWholeWeek&&isSelected){isWeekSelected=true}row.push(renderDay(dayConfig));if(++r===7){if(opts.showWeekNumber){row.unshift(renderWeek(i-before,month,year))}data.push(renderRow(row,opts.isRTL,opts.pickWholeWeek,isWeekSelected));row=[];r=0;isWeekSelected=false}}return renderTable(opts,data,randId)},isVisible:function(){return this._v},show:function(){if(!this.isVisible()){this._v=true;
+this.draw();removeClass(this.el,"is-hidden");if(this._o.bound){addEvent(document,"click",this._onClick);this.adjustPosition()}if(typeof this._o.onOpen==="function"){this._o.onOpen.call(this)}}},hide:function(){var v=this._v;if(v!==false){if(this._o.bound){removeEvent(document,"click",this._onClick)}this.el.style.position="static";this.el.style.left="auto";this.el.style.top="auto";addClass(this.el,"is-hidden");this._v=false;if(v!==undefined&&typeof this._o.onClose==="function"){this._o.onClose.call(this)}}},destroy:function(){var opts=this._o;this.hide();removeEvent(this.el,"mousedown",this._onMouseDown,true);removeEvent(this.el,"touchend",this._onMouseDown,true);removeEvent(this.el,"change",this._onChange);if(opts.keyboardInput){removeEvent(document,"keydown",this._onKeyChange)}if(opts.field){removeEvent(opts.field,"change",this._onInputChange);if(opts.bound){removeEvent(opts.trigger,"click",this._onInputClick);removeEvent(opts.trigger,"focus",this._onInputFocus);removeEvent(opts.trigger,"blur",this._onInputBlur)}}if(this.el.parentNode){this.el.parentNode.removeChild(this.el)}}};return Pikaday}));
+
+
+var dayTimeNumber = new Array(1000); //第x节课1--13
+var dayNumber = new Array(1000); //星期编号 1--5
+var n_tym = 0; //课程总数
+var courseName_tym = new Array(1000); //课程名称
+var teacherName_tym = new Array(1000); //教师
+var room_tym = new Array(1000);   //上课教室
+var courseType = new Array(1000); //单双周课程还是全勤
+var courseTot = new Array(1000); //多少周的课
+var courseBehind = new Array(1000); //是否为后8周的课
+var picker ; //初始日期选择
+
+var starTime;//导出ics的设定初始时间
+var startMonth,startFirstYear,startDay;
+
+//以下注释作废
+// function testDate(date){
+//         var year = date.getFullYear();
+//         var month = date.getMonth()+1;    //js从0开始取
+//         var day = date.getDate();
+//         if (month<10) month='0'+month;
+//         if (day<10) day='0'+day;
+//         if (year<1000) year='0'+year;
+//         var dayTime = ''+year+month+day;
+//         var ans;
+//         $.ajax({
+//             url:'http://tool.bitefu.net/jiari/?d='+dayTime,
+//             type:'get',
+//             success:function(response){
+//                 ans = response.text;   //jquery框架会自动处理json
+//             }
+//         });
+//         return ans;
+// }
+
+//提交初始时间,并生产ics
+function submitTime() {
+    var cal_tym = ics();
+    if (debug_tym === 2 ) console.log(starTime);
+    var courseHour =  new Array('', 8, 9,10,11,13,13,15,15,16,17,18,19,20,21);
+    var courseMinute =new Array('',15,10,15,10, 0,55, 0,55,50,45,40,35,30,15);
+
+    function GetTime_tym(dayx,hourx,minutex, date) {
+        var x = date.getTime() + dayx*86400000 + hourx*3600000 + minutex*60000;
+        return new Date(x);
+    }
+
+    function Transform_tym(date){
+         var year = date.getFullYear();
+         var month = date.getMonth()+1;    //js从0开始取
+         var day = date.getDate();
+         var hour = date.getHours();
+         var minutes = date.getMinutes();
+         var second = date.getSeconds();
+         return month+'/'+day+'/'+year+' '+hour+":"+minutes +":"+second;
+    }
+
+    var date_tym = new Date(startFirstYear,startMonth-1,startDay);
+
+    for (var i=0;i<n_tym;i++){
+        for (var j=0;j<courseTot[i];j++) {
+            var x;
+            if (courseBehind[i] == 1) x = (j+8)*7+dayNumber[i]-1;
+            if (courseType[i] == 0) x = j*7+dayNumber[i]-1;
+            if (courseType[i] == 1) x = j*14+dayNumber[i]-1;
+            if (courseType[i] == 2) x = j*14+dayTimeNumber[i]-1+7;
+            var time_tym = dayTimeNumber[i];
+            var setStartTime = GetTime_tym(x,courseHour[time_tym],courseMinute[time_tym],date_tym);
+            // if (setStartTime.getHours() >= 12)  setStartTime = Transform_tym(setStartTime) ;
+            //     else setStartTime = Transform_tym(setStartTime) + ' am';
+            var setEndTime   = GetTime_tym(x,courseHour[time_tym+1],courseMinute[time_tym+1],date_tym);
+            // if (setEndTime.getHours() >= 12)  setEndTime = Transform_tym(setEndTime) ;
+            //     else setEndTime = Transform_tym(setEndTime) + ' am';
+            cal_tym.addEvent( courseName_tym[i], teacherName_tym[i] , room_tym[i], setStartTime, setEndTime);
+            console.log(courseName_tym[i]);
+            console.log(setStartTime);
+            console.log(setEndTime);
+        }
+    }
+    //导出ics
+    var el =document.getElementById ("calsave");
+    el.addEventListener ("click",cal_tym.download, false);
+    alert("可以点击下载ics，如果提交后要修改日期，请重新刷新页面");
+}
+
+
+
 /**
  * 获取子元素在父元素的的索引
  */
@@ -50,6 +153,8 @@ function parseTableData(table) {
 
     return data;
 }
+
+
 /**
  * 清除现有页面并加载新页面
  */
@@ -118,7 +223,7 @@ function renderGrade() {
                 }; //获取源数据
                 data = sumDataFormater(data); //格式化源数据
                 renderGradePart(data); //渲染成绩模块
-                // renderRestudyPart(data); //渲染重修建议
+                renderRestudyPart(data); //渲染重修建议
             }
         });
     }
@@ -671,7 +776,7 @@ function renderRestudyPart(data) {
             }
         }],
         series: [{
-            name: '重修指数',
+            name: '拉低GPA指数',
             type: 'bar',
             barMaxWidth: 30,
             barMinHeight: 30,
@@ -784,7 +889,7 @@ timeTable.prototype = {
             handler: function (res) {
             	// var div = document.createElement('div');
              //    div.innerHTML = res+"<script>alert(1)</script>";
-             //    
+             //
              	var js = JSON.stringify(res).match(/table0 = new CourseTable.*?table0\.marshalTable/g)[0].split("table0.marshalTable")[0];
              	js = "function CourseTable (year, semester) {\n\tthis.year = year;\n\tthis.semester = semester;\n\tthis.activities = [];\n\t_.times(12 * 7, function (n) {\n\t\tthis.activities[n] = [];\n\t}, this);\n}\nfunction TaskActivity(uk1, instructor, uk2, titleAndId, uk3, place, weeks) {\n\tthis.uk1 = uk1;\n\tthis.instructor = instructor;\n\tthis.uk2 = uk2;\n\tthis.titleAndId = titleAndId;\n\tthis.uk3 = uk3;\n\tthis.place = place;\n\tthis.weeks = weeks;\n}" + js.replace(/\\n/g,"\n").replace(/\\t/g,"\t").replace(/\\"/g,"\"");
                 // console.log(js);
@@ -799,7 +904,7 @@ timeTable.prototype = {
 	                        teacher: v[0].instructor,
 	                        room: v[0].place,
 	                        date: func.timeStringParser(v[0].weeks)
-	                    };	
+	                    };
                 	}
                 	else{
                 		return {};
@@ -888,6 +993,33 @@ timeTable.prototype = {
         };
         $('#course-table').innerHTML = this.data.originalTable;
         var coursepday = this.data.course.length/7;
+
+
+
+        var picker = new Pikaday({
+                field: document.getElementById('datepicker'),
+                format: 'MM/DD/YYYY',
+                toString(date, format) {
+                    // you should do formatting based on the passed format,
+                    // but we will just return 'M/D/YYYY' for simplicity
+                    const day = date.getDate();
+                    const month = date.getMonth() + 1;
+                    const year = date.getFullYear();
+                    return `${month}/${day}/${year}`;
+                },
+                onSelect: function(date) {
+                    const day = date.getDate();
+                    const month = date.getMonth() + 1;
+                    const year = date.getFullYear();
+                    startFirstYear = year;
+                    startMonth = month;
+                    startDay = day;
+                    starTime=`${month}/${day}/${year}`;
+                }
+        });
+        var el2 =document.getElementById ("buttonId");
+        el2.addEventListener ("click",submitTime, false);
+
         for(var i = 0; i < this.data.course.length; i++){
         	if(typeof(this.data.course[i].courseName) != 'string')
         	{
@@ -896,9 +1028,12 @@ timeTable.prototype = {
         	// console.log(typeof(this.data.course[i].courseName));
             var day = Math.floor(i/13) + 1;
             var time = (i%13 + 1);
+            dayTimeNumber[n_tym] = time;
+            dayNumber[n_tym] = day;
             var node = getCourseBox(day, time);
+            if (debug_tym===1) console.log(day,time);
             if (time>1) {
-            	var prevnode = getCourseBox(day, time-1);
+                var prevnode = getCourseBox(day, time-1);
             	if(prevnode.dataset.courseId == this.data.course[i].courseId){
             		prevnode.setAttribute('colspan', 1 + parseInt(prevnode.getAttribute('colspan')));
             		// console.log(node,node.parentNode);
@@ -910,10 +1045,13 @@ timeTable.prototype = {
             // parseInt(time) % 2 ? null : time = parseInt(time) / 2 + 1;
             node.setAttribute('colspan',1);
             node.dataset.courseId = this.data.course[i].courseId;
+            var virtualNode;
+            var courseName;
+            var teacherName;
             if (node.dataset.hasCourse != '1') {
-                var virtualNode = createNode('div', 'course-box');
-                var courseName = this.data.course[i].courseName.length > 10 ? this.data.course[i].courseName.substr(0, 9) + '...' : this.data.course[i].courseName;
-                var teacherName = this.data.course[i].teacher;
+                virtualNode = createNode('div', 'course-box');
+                courseName = this.data.course[i].courseName.length > 10 ? this.data.course[i].courseName.substr(0, 9) + '...' : this.data.course[i].courseName;
+                teacherName = this.data.course[i].teacher;
                 if (this.data.course[i].teacher.indexOf(",") > 0)
                 	teacherName = teacherName.match(/,/g).length <= 1 ? teacherName : teacherName.split(",")[0]+","+teacherName.split(",")[1] + "等"
                 virtualNode.innerHTML = '\
@@ -934,6 +1072,33 @@ timeTable.prototype = {
                     <div class="detail-room" title="' + this.data.course[i].room + '">' + room + '</div>\
                     <div class="detail-date">' + this.data.course[i].date.join('，') + '</div>';
             node.querySelector('.detail-info').appendChild(infoNode);
+
+            var typeCourse = this.data.course[i].date.join('，')+'';
+            courseType[n_tym] = 0;
+            courseTot[n_tym] = 16;
+            courseBehind[n_tym] = 0;
+            if (typeCourse.indexOf('单') >= 0) {
+                courseType[n_tym] =  1;
+                courseTot[n_tym] = 8;
+            }//未处理小学期四周课程或者一周课程
+            else {
+                if (typeCourse.indexOf('双') >= 0) {
+                    courseType[n_tym] = 2;
+                    courseTot[n_tym] = 8;
+                }
+                if (typeCourse.indexOf('9') >= 0) {
+                    courseBehind[n_tym] = 1;
+                    courseTot[n_tym] = 8;
+                }
+                if (typeCourse.indexOf('8') >= 0) {
+                    courseBehind[n_tym] = 0;
+                    courseTot[n_tym] = 8;
+                }
+            }
+            courseName_tym[n_tym] = courseName;
+            teacherName_tym[n_tym] = teacherName;
+            room_tym[n_tym] = room;
+            n_tym++;
         }
         var day = 1;
         while(day < $('#course-table').children[0].children.length){
@@ -1061,6 +1226,7 @@ timeTable.prototype = {
         }
         // debugger;
         var getData = function getData(examType, lastData) {
+            // console.log(lastData);
             var data = lastData;
             if (examType < 5) {
                 //要取回所有的数据，其实examType是查询的考试类型1,2,3,4代表了期末|期中|补考|缓考
